@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">city</string>
+    <string name="activity_login_studentId">学号</string>
+    <string name="activity_login_password">密码</string>
+    <string name="activity_login_loginButton">登录</string>
+    <string name="updateSchedule">更新课表</string>
+</resources>

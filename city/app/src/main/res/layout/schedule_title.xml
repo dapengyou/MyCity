@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+
+    android:background="@color/citybox_blue"
+    android:gravity="center"
+    android:minHeight="40dp"
+    android:padding="10dp"
+    android:orientation="horizontal"
+    >
+
+    <Spinner
+        android:id="@+id/schedule_spinner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="100dp"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+
+        >
+    </Spinner>
+
+
+    <TextView
+        android:id="@+id/updateSchedule"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/updateSchedule"
+        android:paddingLeft="75dp"
+        android:layout_marginRight="1dp"
+        android:textColor="#fff"
+        android:layout_weight="1"
+        android:layout_margin="1dp"
+        />
+
+</LinearLayout>
