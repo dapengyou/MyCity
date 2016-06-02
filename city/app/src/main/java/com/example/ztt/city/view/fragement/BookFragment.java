@@ -15,20 +15,16 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.ztt.city.R;
 import com.example.ztt.city.model.Book;
+import com.example.ztt.city.until.BookNet;
 import com.example.ztt.city.utils.analysis.BookAnalysis;
 import com.twotoasters.jazzylistview.JazzyListView;
 import com.twotoasters.jazzylistview.effects.GrowEffect;
-import com.twotoasters.jazzylistview.effects.SlideInEffect;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -52,11 +48,7 @@ public class BookFragment extends Fragment implements View.OnClickListener {
     public static ProgressDialog sProgressDialog;
     //获得context值
     Context context;
-    //用于volley
-//    private String request;
 
-    //用于volley队列
-    public RequestQueue mQueue;
     private Vector<Book> mBookVector = new Vector<>();
     private List<Map<String, Object>> mList;
     private SimpleAdapter mSimpleAdapter;
@@ -84,8 +76,6 @@ public class BookFragment extends Fragment implements View.OnClickListener {
         mTextView.setOnClickListener(this);
         //设置滑动效果
         mListView.setTransitionEffect(new GrowEffect());
-        //volley请求队列
-        mQueue = Volley.newRequestQueue(context);
     }
 
     @Override
@@ -109,39 +99,32 @@ public class BookFragment extends Fragment implements View.OnClickListener {
         //获取到输入的书名
         String bookName = mEditText.getText().toString();
 
-        //http://cityuit.wuxiwei.cn/index.php/Home/Campus/appLibrary/title/书名
-        String url = "http://cityuit.wuxiwei.cn/index.php/Home/Campus/appLibrary/title/" + bookName;
+        String resultBook = null;
 
         @Override
         protected Void doInBackground(Void... params) {
-        //用volley不好用，显示超时
-            StringRequest getRequest = new StringRequest(Request.Method.GET, url,
-                    new Response.Listener<String>() {
 
-                        public void onResponse(String response) {
-
-                            BookAnalysis bookAnalysis = new BookAnalysis();
-//                            if (response != null) {
-
-                                mBookVector = bookAnalysis.AnalysisBook(response);
-                                initList();
-                                sProgressDialog.dismiss();
-//                            } else {
-//                                sProgressDialog.dismiss();
-//                                Toast.makeText(context, "校网坏了。。。", Toast.LENGTH_SHORT).show();
-//                            }
-
-                        }
-                    }, new Response.ErrorListener() {
-                public void onErrorResponse(VolleyError error) {
-                    Log.i("onErrorResponse", "Get请求失败" + error.toString());
-                }
-            });
-
-            mQueue.add(getRequest);
-
+            try {
+                resultBook = BookNet.Book(bookName);
+//                Log.d("resultBook", resultBook);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             return null;
         }
+
+        //更新UI
+        protected void onPostExecute(Void result) {
+            updateUI(resultBook);
+
+        }
+    }
+
+    private void updateUI(String result) {
+        sProgressDialog.dismiss();
+        mBookVector = BookAnalysis.AnalysisBook(result);
+        initList();
+
     }
 
     /**

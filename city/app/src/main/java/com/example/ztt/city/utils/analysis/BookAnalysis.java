@@ -25,7 +25,7 @@ public class BookAnalysis {
      */
 
     public static Vector<Book> AnalysisBook(String request) {
-        Log.d("nihao",request);
+//        Log.d("request",request);
         Vector<Book> vector = new Vector<>();
 //        request = "{\"books\":[]}";
 //         Log.d("requst" , "requst  " + request );
@@ -38,7 +38,8 @@ public class BookAnalysis {
             //得到json格式的book
             JSONArray bookArray = jsonObject.getJSONArray("book");
 
-            Log.d("book" , "book" + bookArray);
+
+//            Log.d("book" , "book" + bookArray);
 
             //遍历json格式的book
             for (int i = 0; i < bookArray.length(); i++) {
