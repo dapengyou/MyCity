@@ -18,7 +18,7 @@ import android.widget.LinearLayout;
 import com.example.ztt.city.R;
 import com.example.ztt.city.utils.tool.SharedPreferencesTool;
 import com.example.ztt.city.view.fragement.BookFragment;
-import com.example.ztt.city.view.fragement.MessFragment;
+import com.example.ztt.city.view.fragement.LifeFragment;
 import com.example.ztt.city.view.fragement.OtherFragment;
 import com.example.ztt.city.view.fragement.ScheduleFragment;
 
@@ -42,7 +42,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
     private ImageButton mImgMess;
     private ImageButton mImgOther;
 
-    private boolean firstStatu = false;
+    public  boolean firstStatu = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,7 +117,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
         mFragments = new ArrayList<Fragment>();
         Fragment mScheduled = new ScheduleFragment();
         Fragment mBook = new BookFragment();
-        Fragment mMess = new MessFragment();
+        Fragment mMess = new LifeFragment();
         Fragment mOther = new OtherFragment();
         mFragments.add(mScheduled);
         mFragments.add(mBook);

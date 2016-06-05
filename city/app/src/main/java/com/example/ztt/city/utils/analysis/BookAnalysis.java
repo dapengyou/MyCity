@@ -1,7 +1,5 @@
 package com.example.ztt.city.utils.analysis;
 
-import android.util.Log;
-
 import com.example.ztt.city.model.Book;
 
 import org.json.JSONArray;
@@ -27,8 +25,6 @@ public class BookAnalysis {
     public static Vector<Book> AnalysisBook(String request) {
 //        Log.d("request",request);
         Vector<Book> vector = new Vector<>();
-//        request = "{\"books\":[]}";
-//         Log.d("requst" , "requst  " + request );
 
         JSONTokener mJSONTokener = new JSONTokener(request);
         //直接读取就是一个JSONObject对象。
