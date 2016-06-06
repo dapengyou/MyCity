@@ -5,75 +5,79 @@
     android:background="@drawable/setting_backgroud"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/mess_find"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        android:layout_marginTop="12dp"
-        android:paddingLeft="8dp"
-        android:text="食堂档口" />
+        android:layout_marginTop="30dp"
+        android:background="#F0F0F0"
+        android:orientation="vertical">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginBottom="4dp"
-        android:layout_marginTop="4dp"
-        android:background="#D4D4D4" />
-
-    <TextView
-        android:id="@+id/grade_find"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        android:layout_marginTop="12dp"
-        android:paddingLeft="8dp"
-        android:text="成绩查询"
-        android:textSize="16sp" />
+        <TextView
+            android:id="@+id/mess_find"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="12dp"
+            android:text="食堂档口" />
 
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginBottom="4dp"
-        android:layout_marginTop="4dp"
-        android:background="#D4D4D4" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="#D4D4D4" />
 
 
-    <TextView
-        android:id="@+id/four_find"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        android:layout_marginTop="12dp"
-        android:paddingLeft="8dp"
-        android:text="四六级查询"
-        android:textSize="16sp" />
+        <TextView
+            android:id="@+id/grade_find"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="12dp"
+            android:text="成绩查询"
+            android:textSize="16sp" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginBottom="4dp"
-        android:layout_marginTop="4dp"
-        android:background="#D4D4D4" />
+    </LinearLayout>
 
-
-    <TextView
-        android:id="@+id/expressage_find"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12sp"
-        android:layout_marginTop="12sp"
-        android:paddingLeft="8dp"
-        android:text="快递查询"
-        android:textSize="16sp" />
+        android:layout_marginTop="50dp"
+        android:background="#F0F0F0"
+        android:orientation="vertical">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginBottom="4dp"
-        android:layout_marginTop="4dp"
-        android:background="#D4D4D4" />
+        <TextView
+            android:id="@+id/four_find"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="12dp"
+            android:text="四六级查询"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="#D4D4D4" />
+
+
+        <TextView
+            android:id="@+id/expressage_find"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
+            android:text="快递查询"
+            android:textSize="16sp" />
+
+    </LinearLayout>
 
 
 </LinearLayout>

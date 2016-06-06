@@ -2,8 +2,10 @@ package com.example.ztt.city.view.activity;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.graphics.LinearGradient;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,10 +22,13 @@ import com.android.volley.toolbox.Volley;
 import com.example.ztt.city.R;
 import com.example.ztt.city.model.Book;
 import com.example.ztt.city.model.FourScore;
+import com.example.ztt.city.until.BookNet;
+import com.example.ztt.city.until.EnglishNet;
 import com.example.ztt.city.utils.analysis.EnglishAnalysis;
 
 import org.json.JSONException;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -44,7 +49,8 @@ public class EnglishActivity extends Activity implements View.OnClickListener {
     private Vector<FourScore> mFourScore = new Vector<FourScore>();
     private List<Map<String, Object>> mList;
     private SimpleAdapter mSimpleAdapter;
-
+    boolean judge = false;
+    String result = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +62,7 @@ public class EnglishActivity extends Activity implements View.OnClickListener {
         examEditText = (EditText) findViewById(R.id.exam);
         nameEditText = (EditText) findViewById(R.id.name);
         mButton = (Button) findViewById(R.id.English_button);
+        mListView = (ListView) findViewById(R.id.listview);
 
         mButton.setOnClickListener(this);
         mQueue = Volley.newRequestQueue(this.getApplicationContext());
@@ -73,61 +80,44 @@ public class EnglishActivity extends Activity implements View.OnClickListener {
     }
 
     private class ConnectTask extends AsyncTask<Void, Void, Void> {
-        boolean judge = false;
+
+        String name = nameEditText.getText().toString();
+        String exam = examEditText.getText().toString();
 
         @Override
         protected Void doInBackground(Void... params) {
-            StringRequest postRequest = new StringRequest(Request.Method.POST, "http://localhost/index.php/Home/Campus/appQueryCet",
-                    new Response.Listener<String>() {
-                        public void onResponse(String response) {
-                            EnglishAnalysis analysis = new EnglishAnalysis();
-                            try {
-                                //得到jude为true
-                                judge = analysis.getStatu(response);
-
-                                if (judge) {
-                                    sProgressDialog.dismiss();
-                                    mFourScore = EnglishAnalysis.AnalysisEnglish(response);
-                                    initList();
-
-
-                                } else if (examEditText.equals("") || nameEditText.equals("")) {
-                                    sProgressDialog.dismiss();
-                                    Toast.makeText(EnglishActivity.this,
-                                            "姓名或准考证号出错（或为空）.", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    sProgressDialog.dismiss();
-                                    Toast.makeText(EnglishActivity.this,
-                                            "接口问题.", Toast.LENGTH_SHORT).show();
-                                }
-                            } catch (JSONException e) {
-
-                            }
-                        }
-                    }, new Response.ErrorListener() {
-                public void onErrorResponse(VolleyError error) {
-
-                }
-            }) {
-                protected Map<String, String> getParams() {
-                    Map<String, String> params = new HashMap<String, String>();
-                    params.put("exam", examEditText.getText().toString());
-                    params.put("name", nameEditText.getText().toString());
-                    return params;
-                }
-            };
-            mQueue.add(postRequest);
-
+            try {
+                result = EnglishNet.English(exam, name);
+                Log.d("result",result);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             return null;
         }
 
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            EnglishAnalysis analysis = new EnglishAnalysis();
+
+            judge = analysis.getStatu(result);
+            if (judge) {
+                sProgressDialog.dismiss();
+                mFourScore = EnglishAnalysis.AnalysisEnglish(result);
+                initList();
+            } else {
+                sProgressDialog.dismiss();
+                Toast.makeText(EnglishActivity.this,
+                        "接口问题或姓名或准考证号出错.", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
 
     private void initList() {
         mList = getData();
-        mSimpleAdapter = new SimpleAdapter(this, mList, R.layout.item_book,
-                new String[]{"totalgrade", "listen", "read","writer"},
+        mSimpleAdapter = new SimpleAdapter(this, mList, R.layout.item_english,
+                new String[]{"totalgrade", "listen", "read", "writer"},
                 new int[]{R.id.totalgrade, R.id.listen,
                         R.id.read, R.id.writer});
         mListView.setAdapter(mSimpleAdapter);

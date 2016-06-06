@@ -1,5 +1,7 @@
 package com.example.ztt.city.utils.analysis;
 
+import android.util.Log;
+
 import com.example.ztt.city.model.Book;
 
 import org.json.JSONArray;
@@ -35,7 +37,7 @@ public class BookAnalysis {
             JSONArray bookArray = jsonObject.getJSONArray("book");
 
 
-//            Log.d("book" , "book" + bookArray);
+            Log.d("book" , "book" + bookArray);
 
             //遍历json格式的book
             for (int i = 0; i < bookArray.length(); i++) {
