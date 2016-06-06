@@ -102,7 +102,6 @@ public class BookFragment extends Fragment implements View.OnClickListener {
 
             try {
                 resultBook = BookNet.Book(bookName);
-//                Log.d("resultBook", resultBook);
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.ztt.city.R;
+import com.example.ztt.city.view.activity.EnglishActivity;
 import com.example.ztt.city.view.activity.ScoreActivity;
 import com.example.ztt.city.view.activity.WebActivity;
 
@@ -67,7 +68,7 @@ public class LifeFragment extends Fragment implements View.OnClickListener{
                 startActivity(new Intent(activity, ScoreActivity.class));
                 break;
             case R.id.four_find:
-
+                startActivity(new Intent(activity, EnglishActivity.class));
                 break;
             case R.id.expressage_find:
                 startActivity(new Intent(activity,WebActivity.class));

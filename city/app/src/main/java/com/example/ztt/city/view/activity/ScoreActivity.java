@@ -216,7 +216,7 @@ public class ScoreActivity extends Activity implements View.OnClickListener {
                             } catch (JSONException e) {
 
                             }
-                        }
+                    }
                     }, new Response.ErrorListener() {
                 public void onErrorResponse(VolleyError error) {
                 }
@@ -248,7 +248,6 @@ public class ScoreActivity extends Activity implements View.OnClickListener {
 
         ScoreTool st = new ScoreTool(this);
         String trem = st.getTrem(SharedPreferencesTool.getUserId(), "" + item);
-        // Log.d("score", "trem: " + trem);
 
         if (!trem.equals("null")) {
 
