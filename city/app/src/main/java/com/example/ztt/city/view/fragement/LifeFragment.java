@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.example.ztt.city.R;
 import com.example.ztt.city.view.activity.EnglishActivity;
+import com.example.ztt.city.view.activity.FoodActivity;
 import com.example.ztt.city.view.activity.ScoreActivity;
 import com.example.ztt.city.view.activity.WebActivity;
 
@@ -62,7 +63,7 @@ public class LifeFragment extends Fragment implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.mess_find:
-
+                startActivity(new Intent(activity, FoodActivity.class));
                 break;
             case R.id.grade_find:
                 startActivity(new Intent(activity, ScoreActivity.class));

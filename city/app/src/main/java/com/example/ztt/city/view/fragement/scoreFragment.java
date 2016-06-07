@@ -6,7 +6,6 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,7 +75,7 @@ public class scoreFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         context = getContext();
-        view = inflater.inflate(R.layout.other_top_scroe, container, false);
+        view = inflater.inflate(R.layout.scroe_activity, container, false);
 
         mTextView = (TextView) view.findViewById(R.id.textView_find);
         mSpinner = (Spinner) view.findViewById(R.id.score_spinner);

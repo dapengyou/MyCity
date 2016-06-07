@@ -43,8 +43,6 @@ public class EnglishActivity extends Activity implements View.OnClickListener {
     private EditText nameEditText;
     private Button mButton;
     public static ProgressDialog sProgressDialog;
-    //用于volley队列
-    public RequestQueue mQueue;
     private ListView mListView;
     private Vector<FourScore> mFourScore = new Vector<FourScore>();
     private List<Map<String, Object>> mList;
@@ -65,7 +63,6 @@ public class EnglishActivity extends Activity implements View.OnClickListener {
         mListView = (ListView) findViewById(R.id.listview);
 
         mButton.setOnClickListener(this);
-        mQueue = Volley.newRequestQueue(this.getApplicationContext());
     }
 
     @Override

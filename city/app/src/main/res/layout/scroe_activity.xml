@@ -47,10 +47,5 @@
         android:dividerHeight="10dip"
         android:divider="#00ececec"
         android:scrollbars="none"
-        >
-
-
-    </ListView>
-
-
+        />
 </LinearLayout>
