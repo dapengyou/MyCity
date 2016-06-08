@@ -65,11 +65,13 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
         firstStatu = openApp();
         SharedPreferencesTool mSharedPreferencesTool = new SharedPreferencesTool(this);
         boolean loginStatu = mSharedPreferencesTool.getloginstatu();
+
         if (!loginStatu) {
             this.finish();
             startActivity(new Intent(this, loginActivity.class));
         }
     }
+
 
     private boolean openApp() {
 

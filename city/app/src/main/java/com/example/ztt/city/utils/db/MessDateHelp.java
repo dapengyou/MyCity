@@ -6,17 +6,16 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 /**
  * Created by ztt on 16/6/7.
+ * 食堂档口的操作类
  */
 public class MessDateHelp extends SQLiteOpenHelper {
     public static final String CREATE_MESS = "create table mess ("
             + "id text , "
-            + "loaction text ,"
+            + "location text ,"
             + "floor text ,"
             + "name text ,"
             + "telephone text"
             + ")";
-    //建表信息
-    private Context mContext;
 
     public MessDateHelp(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
@@ -24,11 +23,13 @@ public class MessDateHelp extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-
+        db.execSQL("drop table if exists mess");
+        db.execSQL(CREATE_MESS);
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+    public void onUpgrade(SQLiteDatabase dbs, int oldVersion, int newVersion) {
+        dbs.execSQL("drop table if exists res");
+        onCreate(dbs);
     }
 }

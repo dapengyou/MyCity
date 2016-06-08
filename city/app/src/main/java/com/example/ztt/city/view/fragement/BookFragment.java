@@ -59,6 +59,7 @@ public class BookFragment extends Fragment implements View.OnClickListener {
         if (context != null) {
             //初始化
             initialize();
+            initList();
         }
 
         return view;

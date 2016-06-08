@@ -10,8 +10,15 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 
 public class ScheduleDateHelp extends SQLiteOpenHelper {
-    //数据库的文件名
-   // private final static String DATABASE_NAME = "city.db";
+    public static final String CREATE_SCHEDULE =
+            "create table schedule ("
+            + "className text , "
+            + "classRoom text ,"
+            + "weeks text ,"
+            + "colors text ,"
+            + "day text ," //哪一天
+            + "bar text " //哪一节
+            + ")";
 
     public ScheduleDateHelp(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
@@ -19,15 +26,7 @@ public class ScheduleDateHelp extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String sql  = "create table schedule ("
-                + "className text , "
-                + "classRoom text ,"
-                + "weeks text ,"
-                + "colors text ,"
-                + "day text ," //哪一天
-                + "bar text " //哪一节
-                +")";
-        db.execSQL(sql);
+        db.execSQL(CREATE_SCHEDULE);
     }
 
     @Override

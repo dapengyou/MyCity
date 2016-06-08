@@ -1,0 +1,1 @@
+export PATH=${PATH}:/Users/ztt/Library/Android/sdk/platform-tools
