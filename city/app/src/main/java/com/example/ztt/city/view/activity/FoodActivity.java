@@ -2,9 +2,9 @@ package com.example.ztt.city.view.activity;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -14,11 +14,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.ztt.city.R;
-import com.example.ztt.city.model.FourScore;
 import com.example.ztt.city.model.Mess;
 import com.example.ztt.city.until.MessNet;
 import com.example.ztt.city.utils.analysis.MessAnalysis;
-import com.example.ztt.city.utils.db.MenusDateControl;
 import com.example.ztt.city.utils.db.MessDateControl;
 
 import java.io.IOException;
@@ -32,7 +30,7 @@ import java.util.Vector;
  * Created by ztt on 16/6/7.
  * 食堂Activity
  */
-public class FoodActivity extends Activity implements View.OnClickListener {
+public class FoodActivity extends Activity implements View.OnClickListener ,AdapterView.OnItemClickListener{
     private Spinner mSpinner;
     private TextView backTextView;
     private TextView updateTextView;
@@ -83,7 +81,7 @@ public class FoodActivity extends Activity implements View.OnClickListener {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 messSelect = mess[position];
                 messItem = position;
-                sProgressDialog = ProgressDialog.show(FoodActivity.this, null, "查询中......");
+//                sProgressDialog = ProgressDialog.show(FoodActivity.this, null, "查询中......");
                 initList();
 //                ConnectTask task = new ConnectTask();
 //                task.execute();
@@ -111,6 +109,7 @@ public class FoodActivity extends Activity implements View.OnClickListener {
                 break;
         }
     }
+
 
     private class ConnectTask extends AsyncTask<Void, Void, Void> {
 
@@ -153,17 +152,11 @@ public class FoodActivity extends Activity implements View.OnClickListener {
             }
         }
 
-
-        String [] location = null;
-        for(int i = 0; i < messVector.size(); i++){
-            location[i]= (messVector.get(i).getLocation() +
-                            messVector.get(i).getFloor()).trim();
-        }
-
-
         mList = getData();
+
+        String[] title = new String[]{"title","body"};
         mSimpleAdapter = new SimpleAdapter(this, mList, R.layout.item_food,
-                new String[]{"title"},
+                new String[]{title[0]},
                 new int[]{R.id.title_food});
         mListView.setAdapter(mSimpleAdapter);
     }
@@ -188,5 +181,14 @@ public class FoodActivity extends Activity implements View.OnClickListener {
 //        MenusDateControl.delete(this);
         ConnectTask task = new ConnectTask();
         task.execute();
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        String dangkouid = String.valueOf(position);
+        Intent next = new Intent();
+        next.putExtra("dangkouid" , ""+dangkouid);
+        next.setClass(this,DangKouActivity.class);
+        startActivity(next);
     }
 }
