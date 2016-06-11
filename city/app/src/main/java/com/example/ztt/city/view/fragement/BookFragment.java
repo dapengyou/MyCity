@@ -33,7 +33,7 @@ import java.util.Vector;
 
 public class BookFragment extends Fragment implements View.OnClickListener {
     //查询的图标
-    private TextView mTextView;
+    private TextView mTextView,titleTextView;
     //输入框
     private EditText mEditText;
     //ListView第三方库
@@ -73,6 +73,8 @@ public class BookFragment extends Fragment implements View.OnClickListener {
         mTextView.setOnClickListener(this);
         //设置滑动效果
         mListView.setTransitionEffect(new GrowEffect());
+        titleTextView = (TextView) view.findViewById(R.id.book_title);
+        titleTextView.setText("图书");
     }
 
     @Override
