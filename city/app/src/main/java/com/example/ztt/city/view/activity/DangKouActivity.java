@@ -4,38 +4,44 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.example.ztt.city.R;
-import com.example.ztt.city.model.Mess;
+import com.example.ztt.city.model.Menus;
 import com.example.ztt.city.until.DangkouNet;
-import com.example.ztt.city.until.MessNet;
-import com.example.ztt.city.utils.analysis.MessAnalysis;
-import com.example.ztt.city.utils.db.MessDateControl;
+import com.example.ztt.city.utils.analysis.MenusAnalysis;
+import com.example.ztt.city.utils.db.MenusDateControl;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 
 /**
  * Created by ztt on 16/6/11.
  */
 public class DangKouActivity extends Activity {
-    private TextView dangkouName,priceTextView;
+    private TextView dangkouName, priceTextView;
     private ListView mListView;
     String result;
     String dangkouNameString;
     int dangkouId;
+    private Vector<Menus> menusVector = new Vector<>();
+    private List<Map<String, Object>> mList;
+    private SimpleAdapter mSimpleAdapter;
+    boolean judge = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dangkou_activity);
         initialize();
+        initList();
     }
 
     private void initialize() {
@@ -45,11 +51,13 @@ public class DangKouActivity extends Activity {
         //档口Id的转化
         Intent intent = getIntent();
         dangkouNameString = intent.getStringExtra("dangkouid");
+//        Log.d("dang",dangkouNameString);
         dangkouId = Integer.valueOf(dangkouNameString);
         dangkouId++;
         dangkouNameString = String.valueOf(dangkouId);
 
     }
+
     private class ConnectTask extends AsyncTask<Void, Void, Void> {
 
         @Override
@@ -57,7 +65,7 @@ public class DangKouActivity extends Activity {
             try {
                 result = DangkouNet.DangKou(dangkouNameString);
 
-                MessAnalysis.AnalysisMess(result, getApplicationContext());
+                MenusAnalysis.AnalysisMenus(result, dangkouNameString, getApplicationContext());
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -67,23 +75,25 @@ public class DangKouActivity extends Activity {
 
         @Override
         protected void onPostExecute(Void aVoid) {
-            updateUI();
+//            menusVector = MenusDateControl.QueryMenus(DangKouActivity.this,dangkouNameString);
+            initList();
 
         }
     }
 
-    private void updateUI() {
-
-        messVector = MessDateControl.QueryMess(this);
-        initList();
+    private void updateFood() {
+        Log.d("ds","da");
+        MenusDateControl.delete(this);
+        ConnectTask task = new ConnectTask();
+        task.execute();
+        Log.d("da","da");
     }
-
 
     private void initList() {
         //从本地取
-        messVector = MessDateControl.QueryMess(this);
+        menusVector = MenusDateControl.QueryMenus(DangKouActivity.this,dangkouNameString);
         //本地无数据从网络中取
-        if (messVector.size() <= 0) {
+        if (menusVector.size() <= 0) {
             if (judge) {
                 updateFood();
                 judge = false;
@@ -92,19 +102,19 @@ public class DangKouActivity extends Activity {
 
         mList = getData();
 
-        String[] title = new String[]{"title","body"};
-        mSimpleAdapter = new SimpleAdapter(this, mList, R.layout.item_food,
-                new String[]{title[0]},
-                new int[]{R.id.title_food});
+        mSimpleAdapter = new SimpleAdapter(this, mList, R.layout.item_food_price,
+                new String[]{"name","price"},
+                new int[]{R.id.dangkou_name,R.id.price});
         mListView.setAdapter(mSimpleAdapter);
     }
 
     private List<Map<String, Object>> getData() {
         List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-        for (int i = 0; i < messVector.size(); i++) {
+        for (int i = 0; i < menusVector.size(); i++) {
             Map<String, Object> map = new HashMap<String, Object>();
-            Mess mess = messVector.get(i);
-            map.put("title", mess.getName());
+            Menus menus = menusVector.get(i);
+            map.put("name", menus.getName());
+            map.put("price", menus.getPrice());
             list.add(map);
         }
 

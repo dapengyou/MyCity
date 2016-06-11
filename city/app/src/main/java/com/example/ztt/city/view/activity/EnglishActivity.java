@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -41,6 +42,7 @@ import java.util.Vector;
 public class EnglishActivity extends Activity implements View.OnClickListener {
     private EditText examEditText;
     private EditText nameEditText;
+    private TextView backTextView,titleTextView;
     private Button mButton;
     public static ProgressDialog sProgressDialog;
     private ListView mListView;
@@ -61,7 +63,10 @@ public class EnglishActivity extends Activity implements View.OnClickListener {
         nameEditText = (EditText) findViewById(R.id.name);
         mButton = (Button) findViewById(R.id.English_button);
         mListView = (ListView) findViewById(R.id.listview);
-
+        backTextView = (TextView) findViewById(R.id.back);
+        backTextView.setOnClickListener(this);
+        titleTextView = (TextView) findViewById(R.id.title);
+        titleTextView.setText("四六级");
         mButton.setOnClickListener(this);
     }
 
@@ -72,6 +77,9 @@ public class EnglishActivity extends Activity implements View.OnClickListener {
                 sProgressDialog = ProgressDialog.show(EnglishActivity.this, null, "获取成绩中......");
                 ConnectTask task = new ConnectTask();
                 task.execute();
+                break;
+            case R.id.back:
+                this.finish();
                 break;
         }
     }

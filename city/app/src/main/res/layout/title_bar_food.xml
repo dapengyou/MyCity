@@ -11,20 +11,22 @@
         android:id="@+id/back"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="返回"
-        android:layout_marginLeft="10dp"
+        android:layout_gravity="center"
         android:textColor="#fff"
-        android:layout_weight="1"/>
+        android:layout_weight="0.15"
+        android:background="@drawable/ic_navigate_before_black_18dp"/>
 
 
     <Spinner
         android:paddingTop="3dp"
         android:paddingBottom="3dp"
+        android:layout_marginLeft="10dp"
+        android:paddingLeft="70dp"
         android:id="@+id/title"
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        android:layout_gravity="center"
         android:text="title"
         android:textColor="#ffffff"
         android:textSize="24sp"
@@ -33,10 +35,10 @@
         android:id="@+id/updatefood"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="更新"
         android:layout_marginRight="20dp"
-        android:gravity="right"
         android:textColor="#fff"
-        android:layout_weight="1"/>
+        android:layout_weight="0.15"
+
+        android:background="@drawable/ic_cached_black_18dp"/>
 
 </LinearLayout> 

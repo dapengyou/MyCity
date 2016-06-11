@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.example.ztt.city.model.Menus;
 import com.example.ztt.city.model.Mess;
@@ -26,40 +27,44 @@ public class MenusDateControl {
     }
 
     //增加
-    public static void addSQL(Context context, String id, String name,String price) {
+    public static void addSQL(Context context, String id, String name, String price) {
         CreateSQL(context);
         //构造ContentValues实例
         ContentValues values = new ContentValues();
         values.put("id", id);
         values.put("name", name);
         values.put("price", price);
-        db.insert("menus", null, values);
+        db.insert("dangkou", null, values);
 
     }
 
     //删除
     public static void delete(Context context) {
         CreateSQL(context);
-        String sql = "DELETE FROM menus";
+        String sql = "DELETE FROM dangkou ";
         db.execSQL(sql);
     }
+
     //查询
-    public static Vector<Menus> QueryMenus(Context context){
+    public static Vector<Menus> QueryMenus(Context context, String id) {
         CreateSQL(context);
         Vector<Menus> vector = new Vector<>();
-        Menus menus = new Menus();
-        Cursor cursor = db.query("menus", null, null, null, null, null, null);
+
+        Cursor cursor = db.query("dangkou", null, null, null, null, null, null);
         if (cursor.moveToFirst()) {
-            while(cursor.moveToNext()){
-                String id = cursor.getString(cursor.getColumnIndex("id"));
+           do{
+                String dangkouId = cursor.getString(cursor.getColumnIndex("id"));
                 String name = cursor.getString(cursor.getColumnIndex("name"));
                 String price = cursor.getString(cursor.getColumnIndex("price"));
 
-                menus.setId(id);
-                menus.setName(name);
-                menus.setPrice(price);
-                vector.add(menus);
-            }
+                if (dangkouId.equals(id)) {
+                    Menus menus = new Menus();
+                    menus.setId(dangkouId);
+                    menus.setName(name);
+                    menus.setPrice(price);
+                    vector.add(menus);
+                }
+            } while (cursor.moveToNext());
         }
         cursor.close();
         return vector;

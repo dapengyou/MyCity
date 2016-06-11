@@ -39,7 +39,7 @@ import java.util.Vector;
  * Created by ztt on 16/6/3.
  */
 public class ScoreActivity extends Activity implements View.OnClickListener {
-    private TextView mTextView;
+    private TextView mTextView, backTextView, titleTextView;
     private Spinner mSpinner;
     private View view;
     private ListView mListView;
@@ -71,7 +71,10 @@ public class ScoreActivity extends Activity implements View.OnClickListener {
         setContentView(R.layout.scroe_activity);
         mTextView = (TextView) findViewById(R.id.textView_find);
         mSpinner = (Spinner) findViewById(R.id.score_spinner);
-
+        backTextView = (TextView) findViewById(R.id.back);
+        backTextView.setOnClickListener(this);
+        titleTextView = (TextView) findViewById(R.id.title);
+        titleTextView.setText("成绩");
 
         mTextView.setOnClickListener(this);
         mQueue = Volley.newRequestQueue(this.getApplicationContext());
@@ -173,6 +176,9 @@ public class ScoreActivity extends Activity implements View.OnClickListener {
                 ConnectTask task = new ConnectTask();
                 task.execute();
                 break;
+            case R.id.back:
+                this.finish();
+                break;
         }
     }
 
@@ -213,7 +219,7 @@ public class ScoreActivity extends Activity implements View.OnClickListener {
                             } catch (JSONException e) {
 
                             }
-                    }
+                        }
                     }, new Response.ErrorListener() {
                 public void onErrorResponse(VolleyError error) {
                 }

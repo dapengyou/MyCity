@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.example.ztt.city.model.User;
-import com.example.ztt.city.view.fragement.scoreFragment;
 
 
 public class SharedPreferencesTool {

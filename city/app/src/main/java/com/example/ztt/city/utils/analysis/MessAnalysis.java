@@ -21,7 +21,6 @@ import java.util.Vector;
 public class MessAnalysis {
 
     /**
-     * 解析grade
      *
      * @param request
      * @return

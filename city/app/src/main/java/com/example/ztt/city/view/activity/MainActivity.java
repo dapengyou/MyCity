@@ -3,12 +3,14 @@ package com.example.ztt.city.view.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -16,6 +18,8 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 import com.example.ztt.city.R;
+import com.example.ztt.city.utils.db.MenusDateControl;
+import com.example.ztt.city.utils.db.MenusDateHelp;
 import com.example.ztt.city.utils.tool.SharedPreferencesTool;
 import com.example.ztt.city.view.fragement.BookFragment;
 import com.example.ztt.city.view.fragement.LifeFragment;
@@ -42,15 +46,19 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
     private ImageButton mImgMess;
     private ImageButton mImgOther;
 
-    public  boolean firstStatu = false;
+    public boolean firstStatu = false;
+
+    boolean dbStatus = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
+        //MenusDateControl.CreateSQL(this);
         //第一次登陆
         firstLogin();
+       // createtable();
         initView();
         initEvent();
         setSelect(0);
@@ -70,6 +78,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
             this.finish();
             startActivity(new Intent(this, loginActivity.class));
         }
+
     }
 
 
@@ -213,16 +222,16 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
         //切换内容区域
         switch (i) {
             case 0:
-                mImgSchedule.setImageResource(R.drawable.schedule_pressed);
+                mImgSchedule.setImageResource(R.mipmap.ic_home_black_36dp);
                 break;
             case 1:
-                mImgBook.setImageResource(R.drawable.book_pressed);
+                mImgBook.setImageResource(R.mipmap.ic_description_black_36dp);
                 break;
             case 2:
-                mImgMess.setImageResource(R.drawable.mess_pressed);
+                mImgMess.setImageResource(R.mipmap.ic_watch_later_black_36dp);
                 break;
             case 3:
-                mImgOther.setImageResource(R.drawable.other_pressed);
+                mImgOther.setImageResource(R.mipmap.ic_settings_black_36dp);
                 break;
             default:
                 break;
@@ -233,13 +242,25 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
      * 让图片变为暗色
      */
     private void resetImgs() {
-        mImgSchedule.setImageResource(R.drawable.schedule_normal);
-        mImgBook.setImageResource(R.drawable.book_normal);
-        mImgMess.setImageResource(R.drawable.mess_normal);
-        mImgOther.setImageResource(R.drawable.other_normal);
+        mImgSchedule.setImageResource(R.mipmap.ic_home_white_36dp);
+        mImgBook.setImageResource(R.mipmap.ic_description_white_36dp);
+        mImgMess.setImageResource(R.mipmap.ic_watch_later_white_36dp);
+        mImgOther.setImageResource(R.mipmap.ic_settings_white_36dp);
     }
 
-
+//    private void createtable() {
+//        MenusDateHelp menusDBHelp;
+//        SQLiteDatabase db;
+//        menusDBHelp = new MenusDateHelp(this, "citybox.db", null, 1);
+//        db = menusDBHelp.getWritableDatabase();
+//        Log.d("sa", "as");
+//        String CREATE_MENUS = "create table dangkou ("
+//                + "id text , "
+//                + "name text , "
+//                + "price text "
+//                + ")";
+//        db.execSQL(CREATE_MENUS);
+//    }
 
 
 }

@@ -1,7 +1,5 @@
 package com.example.ztt.city.utils.analysis;
 
-import android.util.Log;
-
 import com.example.ztt.city.model.Score;
 
 import org.json.JSONArray;

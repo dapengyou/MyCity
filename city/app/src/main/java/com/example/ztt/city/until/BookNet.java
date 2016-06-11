@@ -18,7 +18,8 @@ public class BookNet {
         InputStream in = null;
         String result; //收到的返回结果
         //http://cityuit.wuxiwei.cn/index.php/Home/Campus/appLibrary/title/书名
-        String urlAdress = "http://cityuit.wuxiwei.cn/index.php/Home/Campus/appLibrary/title/" + bookName;
+        String urlAdress =
+                "http://cityuit.wuxiwei.cn/index.php/Home/Campus/appLibrary/title/" + bookName;
 
         try {
             URL url = new URL(urlAdress);

@@ -4,7 +4,7 @@
     android:layout_width="fill_parent"
     android:layout_height="55dp"
     android:layout_alignParentBottom="true"
-    android:background="@drawable/bottom_bar" >
+    android:background="#3F51B5" >
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -25,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:background="#0000"
                 android:clickable="false"
-                android:src="@drawable/schedule_pressed" />
+                android:src="@mipmap/ic_home_white_36dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -49,7 +49,7 @@
                 android:layout_height="wrap_content"
                 android:background="#0000"
                 android:clickable="false"
-                android:src="@drawable/book_normal" />
+                android:src="@mipmap/ic_description_white_36dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -73,13 +73,13 @@
                 android:layout_height="wrap_content"
                 android:background="#0000"
                 android:clickable="false"
-                android:src="@drawable/mess_normal" />
+                android:src="@mipmap/ic_watch_later_white_36dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#ffffffff"
-                android:text="食堂" />
+                android:text="秒杀" />
         </LinearLayout>
 
         <LinearLayout
@@ -97,7 +97,7 @@
                 android:layout_height="wrap_content"
                 android:background="#0000"
                 android:clickable="false"
-                android:src="@drawable/other_normal" />
+                android:src="@mipmap/ic_settings_white_36dp" />
 
             <TextView
                 android:layout_width="wrap_content"

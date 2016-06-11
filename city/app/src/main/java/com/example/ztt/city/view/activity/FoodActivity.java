@@ -17,6 +17,7 @@ import com.example.ztt.city.R;
 import com.example.ztt.city.model.Mess;
 import com.example.ztt.city.until.MessNet;
 import com.example.ztt.city.utils.analysis.MessAnalysis;
+import com.example.ztt.city.utils.db.MenusDateControl;
 import com.example.ztt.city.utils.db.MessDateControl;
 
 import java.io.IOException;
@@ -69,6 +70,7 @@ public class FoodActivity extends Activity implements View.OnClickListener ,Adap
         backTextView.setOnClickListener(this);
         updateTextView.setOnClickListener(this);
         mListView = (ListView) findViewById(R.id.food_listview);
+        mListView.setOnItemClickListener(this);
     }
 
     private void initSpinner() {
@@ -154,9 +156,9 @@ public class FoodActivity extends Activity implements View.OnClickListener ,Adap
 
         mList = getData();
 
-        String[] title = new String[]{"title","body"};
+//        String[] title = new String[]{"title","body"};
         mSimpleAdapter = new SimpleAdapter(this, mList, R.layout.item_food,
-                new String[]{title[0]},
+                new String[]{"title"},
                 new int[]{R.id.title_food});
         mListView.setAdapter(mSimpleAdapter);
     }
@@ -173,8 +175,6 @@ public class FoodActivity extends Activity implements View.OnClickListener ,Adap
         return list;
     }
 
-
-
     private void updateFood() {
         sProgressDialog = ProgressDialog.show(FoodActivity.this, null, "查询中......");
         MessDateControl.delete(this);
@@ -186,9 +186,9 @@ public class FoodActivity extends Activity implements View.OnClickListener ,Adap
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         String dangkouid = String.valueOf(position);
-        Intent next = new Intent();
+        MenusDateControl.CreateSQL(this);
+        Intent next = new Intent(this,DangKouActivity.class);
         next.putExtra("dangkouid" , ""+dangkouid);
-        next.setClass(this,DangKouActivity.class);
         startActivity(next);
     }
 }

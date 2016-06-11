@@ -29,7 +29,7 @@ public class MessDateHelp extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase dbs, int oldVersion, int newVersion) {
-        dbs.execSQL("drop table if exists res");
+        dbs.execSQL("drop table if exists mess");
         onCreate(dbs);
     }
 }

@@ -2,6 +2,7 @@ package com.example.ztt.city.model;
 
 /**
  * Created by ztt on 16/6/7.
+ * 食堂菜单
  */
 public class Menus {
     private String id;
