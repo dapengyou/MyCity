@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/login">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="#434C5D">
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -48,10 +49,10 @@
             >
 
             <EditText
-                android:layout_marginRight="20dip"
-                android:layout_marginLeft="20dip"
+                android:layout_marginRight="90dip"
+                android:layout_marginLeft="100dip"
                 android:background="@drawable/rounded"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:minHeight="40dp"
                 android:inputType="number"
@@ -71,8 +72,8 @@
             <EditText
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
-                android:layout_marginRight="20dip"
-                android:layout_marginLeft="20dip"
+                android:layout_marginRight="90dip"
+                android:layout_marginLeft="100dip"
                 android:layout_height="wrap_content"
                 android:minHeight="40dp"
                 android:ems="10"
@@ -93,8 +94,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="40dp"
-                android:layout_marginRight="20dip"
-                android:layout_marginLeft="20dip"
+                android:layout_marginRight="70dip"
+                android:layout_marginLeft="80dip"
                 android:background="@drawable/rounded_button"
                 android:text="@string/activity_login_loginButton"
                 android:textSize="20dp"

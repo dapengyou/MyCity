@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -25,8 +26,8 @@ import java.util.Vector;
 /**
  * Created by ztt on 16/6/11.
  */
-public class DangKouActivity extends Activity {
-    private TextView dangkouName, priceTextView;
+public class DangKouActivity extends Activity implements View.OnClickListener{
+    private TextView dangkouName, priceTextView,titleTextView,backTextView;
     private ListView mListView;
     String result;
     String dangkouNameString;
@@ -48,6 +49,10 @@ public class DangKouActivity extends Activity {
         dangkouName = (TextView) findViewById(R.id.dangkou_name);
         priceTextView = (TextView) findViewById(R.id.price);
         mListView = (ListView) findViewById(R.id.dangkou_listview);
+        backTextView = (TextView) findViewById(R.id.back);
+        backTextView.setOnClickListener(this);
+        titleTextView = (TextView) findViewById(R.id.title);
+        titleTextView.setText("菜单");
         //档口Id的转化
         Intent intent = getIntent();
         dangkouNameString = intent.getStringExtra("dangkouid");
@@ -55,6 +60,15 @@ public class DangKouActivity extends Activity {
         dangkouId++;
         dangkouNameString = String.valueOf(dangkouId);
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.back:
+                this.finish();
+                break;
+        }
     }
 
     private class ConnectTask extends AsyncTask<Void, Void, Void> {

@@ -85,7 +85,6 @@ public class MessAnalysis {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Log.d("bn" , "=-==-=" + vector.get(37).getName());
         return vector;
     }
 

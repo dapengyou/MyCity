@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -19,6 +20,7 @@ import com.example.ztt.city.until.MessNet;
 import com.example.ztt.city.utils.analysis.MessAnalysis;
 import com.example.ztt.city.utils.db.MenusDateControl;
 import com.example.ztt.city.utils.db.MessDateControl;
+import com.example.ztt.city.utils.db.SteptDateControl;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -31,7 +33,7 @@ import java.util.Vector;
  * Created by ztt on 16/6/7.
  * 食堂Activity
  */
-public class FoodActivity extends Activity implements View.OnClickListener ,AdapterView.OnItemClickListener{
+public class FoodActivity extends Activity implements View.OnClickListener, AdapterView.OnItemClickListener {
     private Spinner mSpinner;
     private TextView backTextView;
     private TextView updateTextView;
@@ -43,7 +45,7 @@ public class FoodActivity extends Activity implements View.OnClickListener ,Adap
     //数据源
     private static String[] mess = {"二食堂楼上", "二食堂楼下", "三食堂楼上", "三食堂楼下"};
     //得到所选食堂
-    public String messSelect;
+    public String messSelect = null;
     //标记食堂选项
     public int messItem = 0;
     private Vector<Mess> messVector = new Vector<Mess>();
@@ -60,7 +62,7 @@ public class FoodActivity extends Activity implements View.OnClickListener ,Adap
         setContentView(R.layout.food_activity);
         initialize();
         initSpinner();
-        initList();
+        initList(messSelect);
     }
 
     private void initialize() {
@@ -83,10 +85,7 @@ public class FoodActivity extends Activity implements View.OnClickListener ,Adap
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 messSelect = mess[position];
                 messItem = position;
-                sProgressDialog = ProgressDialog.show(FoodActivity.this, null, "查询中......");
-                initList();
-                ConnectTask task = new ConnectTask();
-                task.execute();
+                initList(messSelect);
 
             }
 
@@ -138,14 +137,14 @@ public class FoodActivity extends Activity implements View.OnClickListener ,Adap
     private void updateUI() {
         sProgressDialog.dismiss();
 
-        messVector = MessDateControl.QueryMess(this);
-        initList();
+        messVector = SteptDateControl.QueryMess(this,messSelect);
+        initList(messSelect);
     }
 
 
-    private void initList() {
+    private void initList(String step) {
         //从本地取
-        messVector = MessDateControl.QueryMess(this);
+        messVector = SteptDateControl.QueryMess(this,step);
         //本地无数据从网络中取
         if (messVector.size() <= 0) {
             if (judge) {
@@ -156,19 +155,20 @@ public class FoodActivity extends Activity implements View.OnClickListener ,Adap
 
         mList = getData();
 
-//        String[] title = new String[]{"title","body"};
         mSimpleAdapter = new SimpleAdapter(this, mList, R.layout.item_food,
-                new String[]{"title"},
-                new int[]{R.id.title_food});
+                new String[]{"title","phone"},
+                new int[]{R.id.title_food,R.id.phone_food});
         mListView.setAdapter(mSimpleAdapter);
     }
 
     private List<Map<String, Object>> getData() {
         List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+//        Log.d("ddd",messVector.size()+"");
         for (int i = 0; i < messVector.size(); i++) {
             Map<String, Object> map = new HashMap<String, Object>();
             Mess mess = messVector.get(i);
             map.put("title", mess.getName());
+            map.put("phone", mess.getTelephone());
             list.add(map);
         }
 
@@ -178,6 +178,7 @@ public class FoodActivity extends Activity implements View.OnClickListener ,Adap
     private void updateFood() {
         sProgressDialog = ProgressDialog.show(FoodActivity.this, null, "查询中......");
 //        MenusDateControl.delete(this);
+        SteptDateControl.delete(this);
         MessDateControl.delete(this);
         ConnectTask task = new ConnectTask();
         task.execute();
@@ -186,8 +187,8 @@ public class FoodActivity extends Activity implements View.OnClickListener ,Adap
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         String dangkouid = String.valueOf(position);
-        Intent next = new Intent(this,DangKouActivity.class);
-        next.putExtra("dangkouid" , ""+dangkouid);
+        Intent next = new Intent(this, DangKouActivity.class);
+        next.putExtra("dangkouid", "" + dangkouid);
         startActivity(next);
     }
 }
