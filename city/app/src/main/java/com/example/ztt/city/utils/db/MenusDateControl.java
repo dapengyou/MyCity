@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.example.ztt.city.model.Menus;
@@ -17,13 +18,14 @@ import java.util.Vector;
  */
 public class MenusDateControl {
     public static MenusDateHelp menusDBHelp;
-    public static SQLiteDatabase db;
+    public static SQLiteDatabase dbs;
 
     //创建数据库
     public static void CreateSQL(Context context) {
 
-        menusDBHelp = new MenusDateHelp(context, "citybox.db", null, 1);
-        db = menusDBHelp.getWritableDatabase();
+        menusDBHelp = new MenusDateHelp(context, "citybox.db", null, 2);
+        dbs = menusDBHelp.getWritableDatabase();
+
     }
 
     //增加
@@ -31,18 +33,18 @@ public class MenusDateControl {
         CreateSQL(context);
         //构造ContentValues实例
         ContentValues values = new ContentValues();
-        values.put("id", id);
+        values.put("dangkouid", id);
         values.put("name", name);
         values.put("price", price);
-        db.insert("dangkou", null, values);
-
+        dbs.insert("dangkou", null, values);
+        values.clear();
     }
 
     //删除
     public static void delete(Context context) {
         CreateSQL(context);
         String sql = "DELETE FROM dangkou ";
-        db.execSQL(sql);
+        dbs.execSQL(sql);
     }
 
     //查询
@@ -50,10 +52,10 @@ public class MenusDateControl {
         CreateSQL(context);
         Vector<Menus> vector = new Vector<>();
 
-        Cursor cursor = db.query("dangkou", null, null, null, null, null, null);
+        Cursor cursor = dbs.query("dangkou", null, null, null, null, null, null);
         if (cursor.moveToFirst()) {
            do{
-                String dangkouId = cursor.getString(cursor.getColumnIndex("id"));
+                String dangkouId = cursor.getString(cursor.getColumnIndex("dangkouid"));
                 String name = cursor.getString(cursor.getColumnIndex("name"));
                 String price = cursor.getString(cursor.getColumnIndex("price"));
 

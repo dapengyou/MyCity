@@ -83,10 +83,10 @@ public class FoodActivity extends Activity implements View.OnClickListener ,Adap
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 messSelect = mess[position];
                 messItem = position;
-//                sProgressDialog = ProgressDialog.show(FoodActivity.this, null, "查询中......");
+                sProgressDialog = ProgressDialog.show(FoodActivity.this, null, "查询中......");
                 initList();
-//                ConnectTask task = new ConnectTask();
-//                task.execute();
+                ConnectTask task = new ConnectTask();
+                task.execute();
 
             }
 
@@ -177,8 +177,8 @@ public class FoodActivity extends Activity implements View.OnClickListener ,Adap
 
     private void updateFood() {
         sProgressDialog = ProgressDialog.show(FoodActivity.this, null, "查询中......");
-        MessDateControl.delete(this);
 //        MenusDateControl.delete(this);
+        MessDateControl.delete(this);
         ConnectTask task = new ConnectTask();
         task.execute();
     }
@@ -186,7 +186,6 @@ public class FoodActivity extends Activity implements View.OnClickListener ,Adap
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         String dangkouid = String.valueOf(position);
-        MenusDateControl.CreateSQL(this);
         Intent next = new Intent(this,DangKouActivity.class);
         next.putExtra("dangkouid" , ""+dangkouid);
         startActivity(next);

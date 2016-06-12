@@ -3,6 +3,7 @@ package com.example.ztt.city.utils.db;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 /**
  * Created by ztt on 16/6/7.
@@ -23,8 +24,10 @@ public class MessDateHelp extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        Log.d("as","as");
         db.execSQL("drop table if exists mess");
         db.execSQL(CREATE_MESS);
+        Log.d("as","aw");
     }
 
     @Override

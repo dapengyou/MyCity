@@ -11,10 +11,11 @@ import android.util.Log;
  */
 public class MenusDateHelp extends SQLiteOpenHelper {
     public static final String CREATE_MENUS = "create table dangkou ("
-            + "dangkouid text "
-            + "name text , "
-            + "price text "
-            +")";
+            + "dangkouid text , "
+            + "name text ,"
+            + "price text"
+            + ")";
+
 
     public MenusDateHelp(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
@@ -22,12 +23,15 @@ public class MenusDateHelp extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        Log.d("ds","fg");
         db.execSQL("drop table if exists dangkou");
         db.execSQL(CREATE_MENUS);
+        Log.d("ds","fa");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+
         db.execSQL("drop table if exists dangkou");
         onCreate(db);
     }

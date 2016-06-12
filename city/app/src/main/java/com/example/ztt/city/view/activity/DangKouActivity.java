@@ -39,7 +39,7 @@ public class DangKouActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.dangkou_activity);
+        setContentView(R.layout.menus_activity);
         initialize();
         initList();
     }
@@ -51,7 +51,6 @@ public class DangKouActivity extends Activity {
         //档口Id的转化
         Intent intent = getIntent();
         dangkouNameString = intent.getStringExtra("dangkouid");
-//        Log.d("dang",dangkouNameString);
         dangkouId = Integer.valueOf(dangkouNameString);
         dangkouId++;
         dangkouNameString = String.valueOf(dangkouId);
@@ -75,23 +74,26 @@ public class DangKouActivity extends Activity {
 
         @Override
         protected void onPostExecute(Void aVoid) {
-//            menusVector = MenusDateControl.QueryMenus(DangKouActivity.this,dangkouNameString);
-            initList();
 
+            updateUI();
         }
+
+    }
+    private void updateUI() {
+        menusVector = MenusDateControl.QueryMenus(this,dangkouNameString);
+        initList();
     }
 
     private void updateFood() {
-        Log.d("ds","da");
         MenusDateControl.delete(this);
         ConnectTask task = new ConnectTask();
         task.execute();
-        Log.d("da","da");
     }
 
     private void initList() {
         //从本地取
-        menusVector = MenusDateControl.QueryMenus(DangKouActivity.this,dangkouNameString);
+        menusVector = MenusDateControl.QueryMenus(this, dangkouNameString);
+//        Log.d("menusVector",""+menusVector);
         //本地无数据从网络中取
         if (menusVector.size() <= 0) {
             if (judge) {
@@ -103,8 +105,8 @@ public class DangKouActivity extends Activity {
         mList = getData();
 
         mSimpleAdapter = new SimpleAdapter(this, mList, R.layout.item_food_price,
-                new String[]{"name","price"},
-                new int[]{R.id.dangkou_name,R.id.price});
+                new String[]{"name", "price"},
+                new int[]{R.id.dangkou_name, R.id.price});
         mListView.setAdapter(mSimpleAdapter);
     }
 

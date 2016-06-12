@@ -20,6 +20,7 @@ import android.widget.LinearLayout;
 import com.example.ztt.city.R;
 import com.example.ztt.city.utils.db.MenusDateControl;
 import com.example.ztt.city.utils.db.MenusDateHelp;
+import com.example.ztt.city.utils.db.MessDateHelp;
 import com.example.ztt.city.utils.tool.SharedPreferencesTool;
 import com.example.ztt.city.view.fragement.BookFragment;
 import com.example.ztt.city.view.fragement.LifeFragment;
@@ -48,7 +49,6 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 
     public boolean firstStatu = false;
 
-    boolean dbStatus = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +58,12 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
         //MenusDateControl.CreateSQL(this);
         //第一次登陆
         firstLogin();
-       // createtable();
+        if(firstStatu){
+            createtable();
+        }
+
+//        MenusDateHelp me = new MenusDateHelp(this, "citybox.db", null, 2);
+
         initView();
         initEvent();
         setSelect(0);
@@ -248,19 +253,22 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
         mImgOther.setImageResource(R.mipmap.ic_settings_white_36dp);
     }
 
-//    private void createtable() {
-//        MenusDateHelp menusDBHelp;
-//        SQLiteDatabase db;
-//        menusDBHelp = new MenusDateHelp(this, "citybox.db", null, 1);
-//        db = menusDBHelp.getWritableDatabase();
-//        Log.d("sa", "as");
-//        String CREATE_MENUS = "create table dangkou ("
-//                + "id text , "
-//                + "name text , "
-//                + "price text "
-//                + ")";
-//        db.execSQL(CREATE_MENUS);
-//    }
+    private void createtable() {
+        MenusDateHelp menusDBHelp;
+        MessDateHelp messDateHelp;
+        SQLiteDatabase db,dbs;
+        menusDBHelp = new MenusDateHelp(this, "citybox.db", null, 2);
+        messDateHelp = new MessDateHelp(this,"citybox.db", null, 2);
+        dbs = messDateHelp.getWritableDatabase();
+        db = menusDBHelp.getWritableDatabase();
+        String sql = "create table dangkou ("
+                + "dangkouid text , "
+                + "name text ,"
+                + "price text"
+                + ")";
+//        db.execSQL("drop table if exists dangkou");
+        db.execSQL(sql);
+    }
 
 
 }

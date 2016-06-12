@@ -40,7 +40,6 @@ public class MenusAnalysis {
                 JSONObject temp = dataJSONArray.getJSONObject(i);
                 menus.setId(id);
                 menus.setName(temp.getString("name"));
-                Log.d("name",temp.getString("name"));
                 menus.setPrice(temp.getString("price"));
 
                 //存入数据库

@@ -21,7 +21,7 @@ public class MessDateControl {
     //创建数据库
     public static void CreateSQL(Context context) {
 
-        messDBHelp = new MessDateHelp(context, "citybox.db", null, 1);
+        messDBHelp = new MessDateHelp(context, "citybox.db", null, 2);
         db = messDBHelp.getWritableDatabase();
     }
 

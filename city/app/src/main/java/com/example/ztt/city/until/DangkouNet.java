@@ -14,7 +14,6 @@ import java.net.URL;
  */
 public class DangkouNet {
     public static String DangKou(String id) throws IOException {
-        Log.d("gggg",id);
         InputStream in = null;
         String result; //收到的返回结果
 
@@ -44,7 +43,6 @@ public class DangkouNet {
                 response.append(line);
             }
             result = response.toString();
-            Log.d("fff", result);
         } finally {
             if (in != null) {
                 in.close();
