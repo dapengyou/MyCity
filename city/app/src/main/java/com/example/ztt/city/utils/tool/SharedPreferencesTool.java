@@ -47,6 +47,8 @@ public class SharedPreferencesTool {
         return READ.getBoolean("loginStatu", false);
     }
 
-
+    public static  void clear(){
+        SAVE.clear().commit();
+    }
 
 }

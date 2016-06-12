@@ -25,7 +25,7 @@ public class LifeFragment extends Fragment implements View.OnClickListener{
     private Context context;
     View view;
 
-    private TextView mMessFindTextView; //食堂档口
+//    private TextView mMessFindTextView; //食堂档口
     private TextView mGradeFindTextView; //成绩
     private TextView mFourFindTextView; //四六级
     private  TextView mExpressageFindTextView; //快递
@@ -48,12 +48,12 @@ public class LifeFragment extends Fragment implements View.OnClickListener{
     }
 
     private void initialize() {
-        mMessFindTextView = (TextView) view.findViewById(R.id.mess_find);
+//        mMessFindTextView = (TextView) view.findViewById(R.id.mess_find);
         mGradeFindTextView = (TextView) view.findViewById(R.id.grade_find);
         mFourFindTextView = (TextView) view.findViewById(R.id.four_find);
         mExpressageFindTextView = (TextView) view.findViewById(R.id.expressage_find);
 
-        mMessFindTextView.setOnClickListener(this);
+//        mMessFindTextView.setOnClickListener(this);
         mGradeFindTextView.setOnClickListener(this);
         mFourFindTextView.setOnClickListener(this);
         mExpressageFindTextView.setOnClickListener(this);
@@ -62,9 +62,9 @@ public class LifeFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.mess_find:
-                startActivity(new Intent(activity, FoodActivity.class));
-                break;
+//            case R.id.mess_find:
+//                startActivity(new Intent(activity, FoodActivity.class));
+//                break;
             case R.id.grade_find:
                 startActivity(new Intent(activity, ScoreActivity.class));
                 break;
